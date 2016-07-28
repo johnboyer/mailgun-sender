@@ -1,0 +1,20 @@
+# Untracked build files and directories
+/.gradle
+/bin/
+/build.xml
+/deploy.xml
+/dist/
+/MANIFEST.MF
+/build
+
+# Untracked private config files
+/config/private
+
+# Untracked run files and directories
+/archive
+/java-program-arguments.txt
+/plain-text.txt
+/content.html
+
+# Untracked documentation
+/README.md

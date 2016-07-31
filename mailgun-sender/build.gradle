@@ -29,7 +29,10 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
     
- 
+       maven {
+        url  "http://dl.bintray.com/johnboyer/maven" 
+    }
+
     /*
      def ivyXml = new XmlParser().parse(new File(rootProject.projectDir.getPath() + '/ivy.xml'))
 
@@ -63,7 +66,8 @@ dependencies {
 	compile "net.sf.json-lib:json-lib:2.4:jdk15"
 	compile "com.sun.mail:javax.mail:1.5+"
 	compile 'junit:junit:4.12'
-	compile fileTree(dir: 'libs', include: ['*.jar'])
+	compile "com.rodaxsoft:mailgun-manager:1.0.0"
+	//compile fileTree(dir: 'libs', include: ['*.jar'])
 	
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the

@@ -100,6 +100,7 @@ public final class MailgunSender {
 	 * Recipients file option
 	 */
 	private static final String RECIPIENTS_FILE_OPT = "R";
+	private static final String SCHEDULED_OPT = "S";
 	/**
 	 * Reply to email address option
 	 */
@@ -185,6 +186,16 @@ public final class MailgunSender {
 		
 		OPTIONS.addOption(option);
 		
+		//Schedule delivery time
+		option = Option.builder(SCHEDULED_OPT)
+				.longOpt("schedule-delivery-time")
+				.desc("Scheduled message delivery time ")
+				.hasArg()
+				.argName("RFC 2822 Date")
+				.build();
+
+		OPTIONS.addOption(option);
+			
 		//Campaign
 		option = Option.builder(CAMPAIGN_ID_OPT)
 	                   .longOpt("campaign-id")
@@ -351,12 +362,19 @@ public final class MailgunSender {
 	 * @return
 	 */
 	private static EmailRequest makeEmailRequest(CommandLine cmd, String text, String html, String toAddress) {
-		return new EmailRequest()
-		              .setTo(toAddress)
-		              .setFrom(cmd.getOptionValue(FROM_EMAIL_ADDRESS_OPT, sDefaultFromEmail))
-		              .setSubject(cmd.getOptionValue(EMAIL_SUBJECT_OPT))
-		              .setTextBody(text)
-		              .setHTMLBody(html);
+		EmailRequest request;
+		request = new EmailRequest()
+		 .setTo(toAddress)
+		 .setFrom(cmd.getOptionValue(FROM_EMAIL_ADDRESS_OPT, sDefaultFromEmail))
+		 .setSubject(cmd.getOptionValue(EMAIL_SUBJECT_OPT))
+		 .setTextBody(text)
+		 .setHTMLBody(html);
+		
+		if(cmd.hasOption(SCHEDULED_OPT)) {
+			request.setDeliveryTime(cmd.getOptionValue(SCHEDULED_OPT));
+		}
+		
+		return request;
 	}
 
 	/**
